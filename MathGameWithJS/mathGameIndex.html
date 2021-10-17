@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>JavaScript Game WorkShop</title>
+    <!-- <script src="Js/message.js"></script> -->
+    <style>
+      body{
+        color: #fff;
+        background-color: #573377;
+      }
+      #game{
+        width: 400px;
+        background-color:gray ;
+        padding: 18px;
+        text-align: center;
+        margin: auto;
+      }
+      h1{
+        margin: 0 0 18px 0;
+        border: solid 1px #fff;
+        padding: 5px;
+        font-weight: 400;
+      }
+      span{
+        font-size: 125%;
+        padding: 12px;
+      }
+      #result{
+          width: 100px;
+      }
+      #answer{
+        margin-top: 10px;
+        padding: 5x;
+        border: none;
+        width: 100px;
+        background: greenyellow;
+        color: black;
+      }
+      #answer:hover{
+        background-color: red;
+
+      }
+      #True, #False{
+        font-size: 150%;
+        margin-top: 10px;
+        padding: 10px;
+        display: inline-block;
+      }
+      #True{
+        background-color: green;
+      }
+      #False{
+        background-color: red;
+      }
+    </style>
+    <script></script>
+  </head>
+  <body>
+    <div id="game">
+      <h1>Four Operations Game</h1>
+      <span id="Number1">0</span>
+      <span id="Operator">*</span>
+      <span id="Number2">0</span>
+      <span>=</span>
+      <input type="text" id="result" placeholder="Enter Your Resulr Here" />
+      <input type="button" id="answer" value="Answer" />
+      <div style="clear: both"></div>
+      <div id="True">0</div>
+      <div id="False">0</div>
+      <div style="clear: both"></div>
+    </div>
+
+    <script>
+      // Declare the variables
+      var Number1, Number2, Operator,result, answer, True=0, False=0;
+      // Reach the variables value in the html code
+      Number1 = document.getElementById("Number1");
+      Number2 = document.getElementById("Number2");
+      Operator = document.getElementById('Operator');
+      result = document.getElementById("result");
+      answer = document.getElementById("answer");
+      True = document.getElementById("True");
+      False = document.getElementById("False");
+      
+      // Create random number for math operations
+      function randomNumber(minNumber, maxNumber){
+        // random number
+        var randNumber = Math.floor(Math.random()*(maxNumber-minNumber)+minNumber);
+        return randNumber;
+      }
+
+      // create new question after guessing one 
+      function newQuestion(){
+        var operation = ["+", "-", "*", "/"];
+        // select random operator
+        Operator.textContent=operation[randomNumber(0,4)];
+        Number1.textContent=randomNumber(0,50);
+        Number2.textContent=randomNumber(0,50);
+        if(Operator.textContent=="/"){
+          Number2.textContent=randomNumber(0,50);
+            while(true){
+              if(Number1.textContent%Number2.textContent==0){
+                break;
+              }
+            }
+        }
+      } 
+      
+      // run newQuestion function when page is loaded
+      window.onload=function(){
+        newQuestion();
+      }
+      
+      // When click the Answer button, do that
+      answer.onclick=function(){
+        var num1, num2, ans;
+        n1 = Number(Number1.textContent); // convert text to number
+        n2 = Number(Number2.textContent); // convert text to number
+        switch(Operator.textContent){
+          case "+":
+            ans=n1+n2;
+            break;
+          case "-":
+            ans=n1-n2;
+            break;
+          case "*":
+            ans=n1*n2;
+            break;
+          case "/":
+            ans=n1/n2;
+            break;
+          default:break;
+
+        }
+        if(result.value==ans){
+          True.textContent = Number(True.textContent) + 1;
+        }else{
+          False.textContent = Number(False.textContent) + 1;
+        }
+        newQuestion(); // Run the newQuestion function
+       
+      }
+    </script>
+  </body>
+</html>
